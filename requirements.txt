@@ -1,5 +1,4 @@
-fenics
-peakutils
 numpy
+peakutils
 matplotlib
 
