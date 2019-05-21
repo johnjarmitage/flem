@@ -2,15 +2,20 @@
 
 language: python
 python:
-  - 3.6
-  - 3.5
-  - 3.4
-  - 2.7
+    - 3.6
 
+# Command to install miniconda so we can get dolpyn (fenics and mshr)
+install:
+    - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+    - bash miniconda.sh -b -p "$HOME"/miniconda
+    - source "$HOME"/miniconda/etc/profile.d/conda.sh
+    - conda config --set always_yes yes --set changeps1 no --set auto_update_conda false
+    - conda config --add channels conda-forge
+    - conda install -c conda-forge --file requirements-conda.txt
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
-install: pip install -r requirements.txt
-install: conda install -c conda-forge --file requirements-conda.txt
+install:
+    - pip install -U tox-travis
+    - pip install -r requirements.txt
 
 # Command to run tests, e.g. python setup.py test
 script: tox
@@ -20,12 +25,12 @@ script: tox
 # following command to finish PyPI deployment setup:
 # $ travis encrypt --add deploy.password
 deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  user: johnjarmitage
-  password:
-    secure: PLEASE_REPLACE_ME
-  on:
-    tags: true
-    repo: johnjarmitage/flem
-    python: 3.6
+    provider: pypi
+    distributions: sdist bdist_wheel
+    user: johnjarmitage
+    password:
+        secure: PLEASE_REPLACE_ME
+    on:
+        tags: true
+        repo: johnjarmitage/flem
+        python: 3.6
