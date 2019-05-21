@@ -22,11 +22,18 @@ A simple diffusive landscape evolution model
 * Free software: MIT license
 * Documentation: https://flem.readthedocs.io.
 
+Requirements
+------------
+conda install -c conda-forge fenics
+conda install -c conda-forge mshr
 
 Features
 --------
 
 * TODO
+1. choice to change precipitation rates
+2. choice for boundary conditions
+3. ability to read in a DEM!
 
 Credits
 -------

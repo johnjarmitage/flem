@@ -1,2 +1,5 @@
 fenics
+peakutils
+numpy
+matplotlib
 

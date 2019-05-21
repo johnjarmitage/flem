@@ -10,8 +10,9 @@ from fenics import *
 from mshr import *
 import numpy as np
 
-def flow_steepest(mesh,V,u_n,De,nexp):
+def sd_cellcell(mesh,V,u_n,De,nexp):
     """
+    SD cell-to-cell
     Flow routing from cell-to-cell based on the steepest route of descent
 
     :param mesh: mesh object generated using mshr (fenics)
@@ -21,7 +22,6 @@ def flow_steepest(mesh,V,u_n,De,nexp):
     :param nexp: water flux exponent
     :return:
     """
-
 
     # get a map of neighbours (thanks google!)
     tdim = mesh.topology().dim()
@@ -95,8 +95,9 @@ def flow_steepest(mesh,V,u_n,De,nexp):
 
     return(q);
     
-def flow_celldistrib(mesh,V,u_n,De,nexp):
+def mfd_cellcell(mesh,V,u_n,De,nexp):
     """
+    MFD cell-to-cell
     Flow routing distributed from cell-to-cell
 
     :param mesh: mesh object generated using mshr (fenics)
@@ -196,8 +197,9 @@ def flow_celldistrib(mesh,V,u_n,De,nexp):
     return(q);
 
 
-def flow_distrib(mesh,V,u_n,De,nexp):
+def mfd_nodenode(mesh,V,u_n,De,nexp):
     """
+    MFD node-to-node
     Flow routing distributed from node-to-node
 
     :param mesh: mesh object generated using mshr (fenics)
@@ -298,8 +300,9 @@ def flow_distrib(mesh,V,u_n,De,nexp):
 
     return(q);
 
-def flow_nodenode(mesh,V,u_n,De,nexp):
+def sd_nodenode(mesh,V,u_n,De,nexp):
     """
+    SD node-to-node
     Flow routing from node-to-node based on the steepest route of descent
 
     :param mesh: mesh object generated using mshr (fenics)
