@@ -10,7 +10,7 @@ python:
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
 install: pip install -r requirements.txt
-install: conda install -c conda-forge requirements-conda.txt
+install: conda install -c conda-forge --file requirements-conda.txt
 
 # Command to run tests, e.g. python setup.py test
 script: tox
