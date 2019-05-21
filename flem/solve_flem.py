@@ -14,8 +14,9 @@ FEniCS program: Smith & Bretherton (1972) equations
 """
 
 from __future__ import print_function
-from fenics import *
-from mshr import *
+from fenics import Constant,Point,FunctionSpace,interpolate,SubDomain,DirichletBC,near,TrialFunction,TestFunction,\
+    Expression,dx,dot,grad,lhs,rhs,solve,assemble
+from mshr import Rectangle,generate_mesh
 import numpy as np
 from flem.flow_func import *
 import matplotlib.pyplot as plt

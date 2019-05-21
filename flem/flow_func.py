@@ -6,8 +6,7 @@ flow routing functions
 @author: armitage
 """
 
-from fenics import *
-from mshr import *
+from fenics import Function,vertex_to_dof_map,vertices,Edge,dof_to_vertex_map
 import numpy as np
 
 def sd_cellcell(mesh,V,u_n,De,nexp):
@@ -93,7 +92,7 @@ def sd_cellcell(mesh,V,u_n,De,nexp):
     q = Function(V)
     q.vector()[:] = 1 + De*pow(flux_node,nexp)
 
-    return(q);
+    return q
     
 def mfd_cellcell(mesh,V,u_n,De,nexp):
     """
