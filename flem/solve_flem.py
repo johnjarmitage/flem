@@ -176,18 +176,18 @@ def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statis
         plt.plot(time*1e-6*ly*ly/kappa,sed_flux/dt*kappa,'k',linewidth=2)
         plt.xlabel('Time (Myr)')
         plt.ylabel('Sediment Flux (m^2/yr)')
-        sedname = '%s/sed_flux_%d_%d.svg' % (name,res,num)
+        sedname = '%s/sed_flux_%d.svg' % (name,model_space[2])
         plt.savefig(sedname,format='svg')
         plt.clf()
 
     if out_time != 0 :
     # Output last elevation
-        filename = '%s/u_solution_%d_%d_%d.pvd' % (name,res,num,n)
+        filename = '%s/u_solution_%d_%d.pvd' % (name,model_space[2],n)
         vtkfile = File(filename)
         vtkfile << u
 
         # Output last water flux
-        filename = '%s/q_solution_%d_%d_%d.pvd' % (name,res,num,n)
+        filename = '%s/q_solution_%d_%d.pvd' % (name,model_space[2],n)
         vtkfile = File(filename)
         vtkfile << q
 
@@ -215,7 +215,7 @@ def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statis
         if plot != 0 :
             plt.xlabel('Distance (km)')
             plt.ylabel('Water Flux (m/yr)')
-            watername = '%s/water_flux_spacing_%d_%d.svg' % (name,res,num)
+            watername = '%s/water_flux_spacing_%d.svg' % (name,model_space[2])
             plt.savefig(watername,format='svg')
             plt.clf()
     
