@@ -1,2 +1,6 @@
 fenics
 mshr
+numpy
+peakutils
+matplotlib
+
