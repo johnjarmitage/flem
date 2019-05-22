@@ -24,21 +24,13 @@ A simple diffusive landscape evolution model
 
 Requirements
 ------------
-conda install -c conda-forge fenics
-conda install -c conda-forge mshr
+This library requires an installation of fenics (https://fenicsproject.org/)
 
 Features
 --------
 
-* TODO
-1. choice to change precipitation rates
-2. choice for boundary conditions
-3. ability to read in a DEM!
+List of things to do:
 
-Credits
--------
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+1. Add the choice to change precipitation rates
+2. Add the choice for boundary conditions
+3. Add the ability to read in a DEM!
