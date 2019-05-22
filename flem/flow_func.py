@@ -6,10 +6,10 @@ flow routing functions
 @author: armitage
 """
 
-from fenics import Function,vertex_to_dof_map,vertices,Edge,dof_to_vertex_map
+from fenics import Function, vertex_to_dof_map, vertices, Edge, dof_to_vertex_map
 import numpy as np
 
-def sd_cellcell(mesh,V,u_n,De,nexp):
+def sd_cellcell(mesh, V, u_n, De, nexp) :
     """
     SD cell-to-cell
     Flow routing from cell-to-cell based on the steepest route of descent

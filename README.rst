@@ -14,6 +14,7 @@ flem
         :alt: Documentation Status
 
 
+.. image:: https://github.com/johnjarmitage/io-page/blob/master/static/images/flem.gif
 
 
 A simple diffusive landscape evolution model
