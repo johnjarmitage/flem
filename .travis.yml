@@ -13,10 +13,12 @@ install:
     - conda config --set always_yes yes --set changeps1 no --set auto_update_conda false
     - conda config --add channels conda-forge
     - conda install -c conda-forge --file requirements_conda.txt
+    - conda install -c conda-forge --file requirements_dev.txt
 
 # Command to run tests, e.g. python setup.py test
 script:
     - conda activate
+    - export PYTHONPATH=.
     - py.test
 
 # Assuming you have installed the travis-ci CLI tool, after you
