@@ -1,4 +1,5 @@
 numpy
 peakutils
 matplotlib
-
+elevation
+scipy

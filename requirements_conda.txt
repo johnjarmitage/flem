@@ -1,6 +1,8 @@
 fenics
 mshr
+gdal
 numpy
 peakutils
 matplotlib
-
+elevation
+scipy
