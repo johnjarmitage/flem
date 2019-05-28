@@ -19,7 +19,7 @@ if not os.path.exists(directory) :
 
 # Domain dimensions
 dem = 1
-bounds = [98.685, 51.208, 98.911, 51.337]
+bounds = [98.685, 51.208, 98.911, 51.337]  # https://g.co/ev/5426
 res = 128
 model_space, u_n, mesh, V, bc = initialise(dem, bounds, res)
 

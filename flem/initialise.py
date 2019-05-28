@@ -13,9 +13,9 @@ def initialise(dem, bounds, res):
     """
     Function to initialise the model space
 
-    :param dem:
-    :param bounds: west, south, east, north
-    :param res:
+    :param dem: 0 = no input DEM; 1 = input DEM
+    :param bounds: west, south, east, north - if no DEM [0, 0, lx, ly]; if DEM [west, south, east, north]
+    :param res: model resolution along the y-axis.
     :return model_space, u_n, mesh, V, bc:
     """
 
