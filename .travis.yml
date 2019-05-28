@@ -14,11 +14,11 @@ install:
     - conda config --add channels conda-forge
     - conda install -c conda-forge --file requirements_conda.txt
     - conda install -c conda-forge --file requirements_dev.txt
-    - pip install -r requirements.txt
 
 # Command to run tests, e.g. python setup.py test
 script:
     - conda activate
+    - pip install -r requirements.txt
     - export PYTHONPATH=.
     - py.test
 
