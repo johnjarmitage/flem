@@ -30,7 +30,7 @@ deploy:
     distributions: sdist bdist_wheel
     user: johnjarmitage
     password:
-        secure: PLEASE_REPLACE_ME
+        secure:
     on:
         tags: true
         repo: johnjarmitage/flem

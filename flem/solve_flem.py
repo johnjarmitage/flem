@@ -22,7 +22,8 @@ from flem.flow_func import *
 import matplotlib.pyplot as plt
 import peakutils # https://zenodo.org/badge/latestdoi/102883046
 
-def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statistics,name):
+
+def solve_flem(model_space, physical_space, flow, dt, num_steps, out_time, plot, statistics, name):
     """
     Solve for landscape evolution
 
@@ -51,42 +52,42 @@ def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statis
        
     # Physical parameters
     kappa = physical_space[0]           # diffusion coefficient
-    c     = physical_space[1]           # discharge transport coefficient
-    nexp  = physical_space[2]          # discharge exponent
-    alpha = physical_space[3]              # precipitation rate
-    De    = c*pow(alpha*ly,nexp)/kappa
-    uamp  = physical_space[4]*ly/kappa     # uplift
+    c = physical_space[1]               # discharge transport coefficient
+    nexp = physical_space[2]            # discharge exponent
+    alpha = physical_space[3]           # precipitation rate
+    De = c*pow(alpha*ly, nexp)/kappa
+    uamp = physical_space[4]*ly/kappa   # uplift
     
-    dt        = dt*kappa/(ly*ly)   # time step size
+    dt = dt*kappa/(ly*ly)               # time step size
     
-    sed_flux = np.zeros(num_steps) # array to store sediment flux
-    time     = np.zeros(num_steps)
+    sed_flux = np.zeros(num_steps)      # array to store sediment flux
+    time = np.zeros(num_steps)
     
     # Create mesh and define function space
-    domain = Rectangle(Point(0,0), Point(lx/ly,ly/ly))
-    mesh = generate_mesh(domain,model_space[2]);
+    domain = Rectangle(Point(0, 0), Point(lx/ly, ly/ly))
+    mesh = generate_mesh(domain, model_space[2])
         
-    V = FunctionSpace(mesh,'P',1)
+    V = FunctionSpace(mesh, 'P', 1)
     
     # Define boundary condition and initial condition
     # u_D = Expression('100/lx*x[0]',degree=1,lx=lx)
     u_D = Constant(0)
     
     class East(SubDomain):
-        def inside(self, x , on_boundary):
-           return near(x[0], lx/ly)
+        def inside(self, x, on_boundary):
+            return near(x[0], lx/ly)
     
     class West(SubDomain):
-        def inside(self, x , on_boundary):
-           return near(x[0], 0.0)
+        def inside(self, x, on_boundary):
+            return near(x[0], 0.0)
     
     class North(SubDomain):
-        def inside(self, x , on_boundary):
-           return near(x[1], ly/ly)
+        def inside(self, x, on_boundary):
+            return near(x[1], ly/ly)
     
     class South(SubDomain):
-        def inside(self, x , on_boundary):
-           return near(x[1], 0.0)
+        def inside(self, x, on_boundary):
+            return near(x[1], 0.0)
 
     # Should make this into an option!
 
@@ -98,7 +99,7 @@ def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statis
     # bc = DirichletBC(V, u_D, boundary)
 
     # Define initial value
-    eps = 10/ly;
+    eps = 10/ly
     u_n = interpolate(u_D, V)
     u_n.vector().set_local(u_n.vector().get_local()+eps*np.random.random(u_n.vector().size()))
     
@@ -108,21 +109,21 @@ def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statis
     f = Constant(uamp)
 
     # 0 = MFD node-to-node; 1 = MFD cell-to-cell; 2 = SD node-to-node; 3 = SD cell-to-cell
-    if flow == 0 :
-        q_n = mfd_nodenode(mesh,V,u_n,De,nexp)
-    if flow == 1 :
-        q_n = mfd_cellcell(mesh,V,u_n,De,nexp)
-    if flow == 2 :
-        q_n = sd_nodenode(mesh,V,u_n,De,nexp)
-    if flow == 3 :
-        q_n = sd_cellcell(mesh,V,u_n,De,nexp)
+    if flow == 0:
+        q_n = mfd_nodenode(mesh, V, u_n, De, nexp)
+    if flow == 1:
+        q_n = mfd_cellcell(mesh, V, u_n, De, nexp)
+    if flow == 2:
+        q_n = sd_nodenode(mesh, V, u_n, De, nexp)
+    if flow == 3:
+        q_n = sd_cellcell(mesh, V, u_n, De, nexp)
     
     F = u*v*dx + dt*q_n*dot(grad(u), grad(v))*dx - (u_n + dt*f)*v*dx
     a, L = lhs(F), rhs(F)
     
     # Solution and sediment flux
     u = Function(V)
-    q_s = Expression('u0 + displ - u1',u0=u_n,displ=Constant(uamp*dt),u1=u,degree=2)
+    q_s = Expression('u0 + displ - u1', u0=u_n, displ=Constant(uamp*dt), u1=u, degree=2)
     
     # Iterate
     t = 0
@@ -131,9 +132,9 @@ def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statis
     
         # This needs to become an option!
         # Double rain fall
-        #if n == 501:
-        #  alpha = 2
-        #  De    = c*pow(alpha*ly,nexp)/kappa
+        # if n == 501:
+        #   alpha = 2
+        #   De    = c*pow(alpha*ly,nexp)/kappa
     
         # Update current time
         t += dt
@@ -143,81 +144,81 @@ def solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statis
     
         # Calculate sediment flux
         sed_flux[i] = assemble(q_s*dx(mesh))
-        time[i]     = t
+        time[i] = t
         i += 1
     
         # Update previous solution
         u_n.assign(u)
     
         # Update flux
-            # 0 = MFD node-to-node; 1 = MFD cell-to-cell; 2 = SD node-to-node; 3 = SD cell-to-cell
-        if flow == 0 :
-            q = mfd_nodenode(mesh,V,u_n,De,nexp)
-        if flow == 1 :
-            q = mfd_cellcell(mesh,V,u_n,De,nexp)
-        if flow == 2 :
-            q = sd_nodenode(mesh,V,u_n,De,nexp)
-        if flow == 3 :
-            q = sd_cellcell(mesh,V,u_n,De,nexp)
+        # 0 = MFD node-to-node; 1 = MFD cell-to-cell; 2 = SD node-to-node; 3 = SD cell-to-cell
+        if flow == 0:
+            q = mfd_nodenode(mesh, V, u_n, De, nexp)
+        if flow == 1:
+            q = mfd_cellcell(mesh, V, u_n, De, nexp)
+        if flow == 2:
+            q = sd_nodenode(mesh, V, u_n, De, nexp)
+        if flow == 3:
+            q = sd_cellcell(mesh, V, u_n, De, nexp)
         q_n.assign(q)
         
         # Output solutions
-        if out_time != 0 :
-            if np.mod(n,out_time) == 0 :
-              filename = '%s/u_solution_%d.pvd' % (name,n)
-              vtkfile = File(filename)
-              vtkfile << u
-              filename = '%s/q_solution_%d.pvd' % (name,n)
-              vtkfile = File(filename)
-              vtkfile << q
+        if out_time != 0:
+            if np.mod(n, out_time) == 0:
+                filename = '%s/u_solution_%d.pvd' % (name, n)
+                vtkfile = File(filename)
+                vtkfile << u
+                filename = '%s/q_solution_%d.pvd' % (name, n)
+                vtkfile = File(filename)
+                vtkfile << q
       
     # Post processing
-    if plot != 0 :
-        plt.plot(time*1e-6*ly*ly/kappa,sed_flux/dt*kappa,'k',linewidth=2)
+    if plot != 0:
+        plt.plot(time*1e-6*ly*ly/kappa, sed_flux/dt*kappa, 'k', linewidth=2)
         plt.xlabel('Time (Myr)')
         plt.ylabel('Sediment Flux (m^2/yr)')
-        sedname = '%s/sed_flux_%d.svg' % (name,model_space[2])
-        plt.savefig(sedname,format='svg')
+        sedname = '%s/sed_flux_%d.svg' % (name, model_space[2])
+        plt.savefig(sedname, format='svg')
         plt.clf()
 
-    if out_time != 0 :
-    # Output last elevation
-        filename = '%s/u_solution_%d_%d.pvd' % (name,model_space[2],n)
+    if out_time != 0:
+        # Output last elevation
+        filename = '%s/u_solution_%d_%d.pvd' % (name, model_space[2], n)
         vtkfile = File(filename)
         vtkfile << u
 
         # Output last water flux
-        filename = '%s/q_solution_%d_%d.pvd' % (name,model_space[2],n)
+        filename = '%s/q_solution_%d_%d.pvd' % (name, model_space[2], n)
         vtkfile = File(filename)
         vtkfile << q
 
     # Calculate valley spacing from peak to peak in water flux
-    tol    = 0.001 # avoid hitting points outside the domain
-    y      = np.linspace(0 + tol, 1 - tol, 100)
-    x      = np.linspace(0.01,0.21,20)
+    tol = 0.001 # avoid hitting points outside the domain
+    y = np.linspace(0 + tol, 1 - tol, 100)
+    x = np.linspace(0.01, 0.21, 20)
     wavelength = np.zeros(len(x))
-    if statistics != 0 :
+    if statistics != 0:
         i = 0
-        for ix in x :
-          points = [(ix, y_) for y_ in y] # 2D points
-          q_line = np.array([q(point) for point in points])
+        for ix in x:
+            points = [(ix, y_) for y_ in y]  # 2D points
+            q_line = np.array([q(point) for point in points])
 
-          indexes = peakutils.indexes(q_line,thres=0.05,min_dist=5)
-          if len(indexes) > 1 :
-            wavelength[i] = sum(np.diff(y[indexes]))/(len(indexes)-1)
-          else :
-            wavelength[i] = 0
+            indexes = peakutils.indexes(q_line, thres=0.05, min_dist=5)
+            if len(indexes) > 1:
+                wavelength[i] = sum(np.diff(y[indexes]))/(len(indexes)-1)
+            else:
+                wavelength[i] = 0
 
-          plt.plot(y*1e-3*ly,q_line*kappa/ly,'k',linewidth=2)
-          plt.plot(y[indexes]*1e-3*ly,q_line[indexes]*kappa/ly,'+r')
-          i += 1
+        plt.plot(y*1e-3*ly, q_line*kappa/ly, 'k', linewidth=2)
+        plt.plot(y[indexes]*1e-3*ly, q_line[indexes]*kappa/ly, '+r')
+        i += 1
 
-        if plot != 0 :
+        if plot != 0:
             plt.xlabel('Distance (km)')
             plt.ylabel('Water Flux (m/yr)')
-            watername = '%s/water_flux_spacing_%d.svg' % (name,model_space[2])
-            plt.savefig(watername,format='svg')
+            watername = '%s/water_flux_spacing_%d.svg' % (name, model_space[2])
+            plt.savefig(watername, format='svg')
             plt.clf()
     
     return sed_flux, time, wavelength
-    
+

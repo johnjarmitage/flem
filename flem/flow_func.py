@@ -9,7 +9,8 @@ flow routing functions
 from fenics import Function, vertex_to_dof_map, vertices, Edge, dof_to_vertex_map
 import numpy as np
 
-def sd_cellcell(mesh, V, u_n, De, nexp) :
+
+def sd_cellcell(mesh, V, u_n, De, nexp):
     """
     SD cell-to-cell
     Flow routing from cell-to-cell based on the steepest route of descent
@@ -90,11 +91,12 @@ def sd_cellcell(mesh, V, u_n, De, nexp) :
             flux_node[nod] = flux_node[nod] + flux[cell.index()]/3
 
     q = Function(V)
-    q.vector()[:] = 1 + De*pow(flux_node,nexp)
+    q.vector()[:] = 1 + De*pow(flux_node, nexp)
 
     return q
-    
-def mfd_cellcell(mesh,V,u_n,De,nexp):
+
+
+def mfd_cellcell(mesh, V, u_n, De, nexp):
     """
     MFD cell-to-cell
     Flow routing distributed from cell-to-cell
@@ -191,12 +193,12 @@ def mfd_cellcell(mesh,V,u_n,De,nexp):
             flux_node[nod] = flux_node[nod] + flux[cell.index()]/3
 
     q = Function(V)
-    q.vector()[:] = 1 + De*pow(flux_node,nexp)
+    q.vector()[:] = 1 + De*pow(flux_node, nexp)
 
-    return(q);
+    return q
 
 
-def mfd_nodenode(mesh,V,u_n,De,nexp):
+def mfd_nodenode(mesh, V, u_n, De, nexp):
     """
     MFD node-to-node
     Flow routing distributed from node-to-node
@@ -297,9 +299,10 @@ def mfd_nodenode(mesh,V,u_n,De,nexp):
     q = Function(V)
     q.vector()[:] = q0[dof_to_vertex_map(V)]
 
-    return(q);
+    return q
 
-def sd_nodenode(mesh,V,u_n,De,nexp):
+
+def sd_nodenode(mesh, V, u_n, De, nexp):
     """
     SD node-to-node
     Flow routing from node-to-node based on the steepest route of descent
@@ -410,4 +413,4 @@ def sd_nodenode(mesh,V,u_n,De,nexp):
     q = Function(V)
     q.vector()[:] = q0[dof_to_vertex_map(V)]
 
-    return(q);
+    return q
