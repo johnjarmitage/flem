@@ -4,3 +4,4 @@ gdal
 numpy
 peakutils
 matplotlib
+scipy
