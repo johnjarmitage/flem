@@ -6,8 +6,7 @@ Test of flem
 """
 
 from __future__ import print_function
-import numpy as np
-from flem import *
+from flem import initialise, solve_flem
 import os
 
 # Directory name
@@ -19,7 +18,10 @@ if not os.path.exists(directory) :
 
 
 # Domain dimensions
-model_space = [1e5, 8e5, 256] # lx, ly, resolution
+dem = 1
+bounds = [98.685, 51.208, 98.911, 51.337]
+res = 128
+model_space, u_n, mesh, V, bc = initialise(dem, bounds, res)
 
 # Physical parameters
 physical_space = [1e+0,1e-5,1.5,1,1e-4] # [kappa, c, nexp, alpha, U]
@@ -32,7 +34,7 @@ dt = 1e4
 num_steps = 20
 
 # Output
-out_time = 0
+out_time = 10
 
 # Plot stuff
 plot = 0
@@ -40,6 +42,6 @@ plot = 0
 # Calculate valley to valley wavelength
 statistics = 0
 
-[sed_flux, time, wavelength] = solve_flem(model_space,physical_space,flow,dt,num_steps,out_time,plot,statistics,name)
+[sed_flux, time, wavelength] = solve_flem(model_space,physical_space,flow,u_n, mesh, V, bc,dt,num_steps,out_time,plot,statistics,name)
 
 

@@ -1,9 +1,8 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 """
-flow routing functions
 
+flem
 @author: armitage
+
 """
 
 from fenics import Function, vertex_to_dof_map, vertices, Edge, dof_to_vertex_map

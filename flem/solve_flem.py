@@ -1,5 +1,3 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 """
 FEniCS program: Smith & Bretherton (1972) equations
 
@@ -15,7 +13,7 @@ FEniCS program: Smith & Bretherton (1972) equations
 
 from __future__ import print_function
 from fenics import Constant,Point,FunctionSpace,interpolate,SubDomain,DirichletBC,near,TrialFunction,TestFunction,\
-    Expression,dx,dot,grad,lhs,rhs,solve,assemble
+    Expression,dx,dot,grad,lhs,rhs,solve,assemble,File
 from mshr import Rectangle,generate_mesh
 import numpy as np
 from flem.flow_func import *
@@ -23,7 +21,7 @@ import matplotlib.pyplot as plt
 import peakutils # https://zenodo.org/badge/latestdoi/102883046
 
 
-def solve_flem(model_space, physical_space, flow, dt, num_steps, out_time, plot, statistics, name):
+def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_steps, out_time, plot, statistics, name):
     """
     Solve for landscape evolution
 
@@ -37,6 +35,10 @@ def solve_flem(model_space, physical_space, flow, dt, num_steps, out_time, plot,
     :param model_space: list of domain variables, [lx,ly,res]
     :param physical_space: list of physical parameters, [kappa, c, nexp, alpha, U]
     :param flow: 0 = MFD node-to-node; 1 = MFD cell-to-cell; 2 = SD node-to-node; 3 = SD cell-to-cell
+    :param u_n: elevation function
+    :param mesh: dolphyn mesh
+    :param V: fenics functionspace
+    :param bc: boundary conditions
     :param dt: time step size in years
     :param num_steps: number of time steps
     :param out_time: time steps to output vtk files (0=none)
@@ -49,7 +51,7 @@ def solve_flem(model_space, physical_space, flow, dt, num_steps, out_time, plot,
     # Domain dimensions
     lx = model_space[0]
     ly = model_space[1]
-       
+
     # Physical parameters
     kappa = physical_space[0]           # diffusion coefficient
     c = physical_space[1]               # discharge transport coefficient
@@ -62,47 +64,7 @@ def solve_flem(model_space, physical_space, flow, dt, num_steps, out_time, plot,
     
     sed_flux = np.zeros(num_steps)      # array to store sediment flux
     time = np.zeros(num_steps)
-    
-    # Create mesh and define function space
-    domain = Rectangle(Point(0, 0), Point(lx/ly, ly/ly))
-    mesh = generate_mesh(domain, model_space[2])
-        
-    V = FunctionSpace(mesh, 'P', 1)
-    
-    # Define boundary condition and initial condition
-    # u_D = Expression('100/lx*x[0]',degree=1,lx=lx)
-    u_D = Constant(0)
-    
-    class East(SubDomain):
-        def inside(self, x, on_boundary):
-            return near(x[0], lx/ly)
-    
-    class West(SubDomain):
-        def inside(self, x, on_boundary):
-            return near(x[0], 0.0)
-    
-    class North(SubDomain):
-        def inside(self, x, on_boundary):
-            return near(x[1], ly/ly)
-    
-    class South(SubDomain):
-        def inside(self, x, on_boundary):
-            return near(x[1], 0.0)
 
-    # Should make this into an option!
-
-    bc = [DirichletBC(V, u_D, West()),
-          DirichletBC(V, u_D, East())]
-    
-    # def boundary(x, on_boundary):
-    #   return on_boundary
-    # bc = DirichletBC(V, u_D, boundary)
-
-    # Define initial value
-    eps = 10/ly
-    u_n = interpolate(u_D, V)
-    u_n.vector().set_local(u_n.vector().get_local()+eps*np.random.random(u_n.vector().size()))
-    
     # Define variational problem
     u = TrialFunction(V)
     v = TestFunction(V)

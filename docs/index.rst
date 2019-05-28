@@ -1,4 +1,4 @@
-Welcome to flem's documentation!
+Welcome to flem's documentation
 ======================================
 
 .. toctree::
