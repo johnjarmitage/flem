@@ -15,4 +15,4 @@ from .initialise import initialise
 from flem.initialise import initialise
 from .solve_flem import solve_flem
 
-__all__ = ["sd_cellcell","mfd_cellcell","sd_nodenode","mfd_nodenode","solve_flem"]
+__all__ = ["sd_cellcell","mfd_cellcell","sd_nodenode","mfd_nodenode","solve_flem","initialise","read_dem"]

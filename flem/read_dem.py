@@ -8,7 +8,7 @@ flem
 import numpy as np
 import elevation as elv
 import os
-import gdal
+from osgeo import gdal
 from fenics import *
 from mshr import *
 from scipy import interpolate
