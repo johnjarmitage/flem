@@ -160,4 +160,10 @@ texinfo_documents = [
 ]
 
 
+# Exclude imports
+autodoc_mock_imports = [
+    "fenics",
+    "mshr",
+]
+
 
