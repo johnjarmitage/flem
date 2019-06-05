@@ -164,6 +164,11 @@ texinfo_documents = [
 autodoc_mock_imports = [
     "fenics",
     "mshr",
+    "gdal",
+    "numpy",
+    "peakutils",
+    "matplotlib",
+    "scipy"
 ]
 
 

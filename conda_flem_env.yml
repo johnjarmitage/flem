@@ -1,4 +1,4 @@
-name: flem
+name: flem_rtd
 channels:
     - conda-forge
 dependencies:

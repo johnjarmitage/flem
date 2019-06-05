@@ -2,9 +2,6 @@
 
 version: 2
 
-conda:
-    environment: conda_flem_env.yml
-
 python:
     version: 3.6
     install:
