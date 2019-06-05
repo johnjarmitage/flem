@@ -160,7 +160,7 @@ texinfo_documents = [
 ]
 
 
-# Exclude imports
+# Exclude imports that use conda as rtd does not have sufficient memory
 autodoc_mock_imports = [
     "fenics",
     "mshr",
