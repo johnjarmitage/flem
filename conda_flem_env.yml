@@ -1,14 +1,14 @@
 name: flem
 channels:
-  - conda-forge
+    - conda-forge
 dependencies:
-  - python=3.6
-  - fenics
-  - mshr
-  - gdal
-  - numpy
-  - peakutils
-  - matplotlib
-  - scipy
-  pip:
-    - elevation
+    - python=3.6
+    - fenics
+    - mshr
+    - gdal
+    - numpy
+    - peakutils
+    - matplotlib
+    - scipy
+    pip:
+        - elevation
