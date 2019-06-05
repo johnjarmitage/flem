@@ -168,7 +168,7 @@ autodoc_mock_imports = [
     "numpy",
     "peakutils",
     "matplotlib",
-    "scipy"
+    "scipy",
 ]
 
 
