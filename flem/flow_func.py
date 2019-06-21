@@ -316,11 +316,11 @@ def sd_nodenode(mesh, V, u_n, De, nexp):
 
     # get the global coordinates
     gdim = mesh.geometry().dim()
-    if dolfin.dolfin_version() == '1.6.0':
-      dofmap = V.dofmap()
-      gc = dofmap.tabulate_all_coordinates(mesh).reshape((-1,gdim))
-    else:
-      gc = V.tabulate_dof_coordinates().reshape((-1,gdim))
+    #if dolfin.dolfin_version() == '1.6.0':
+    #  dofmap = V.dofmap()
+    #  gc = dofmap.tabulate_all_coordinates(mesh).reshape((-1,gdim))
+    #else:
+    gc = V.tabulate_dof_coordinates().reshape((-1,gdim))
     vtd = vertex_to_dof_map(V)
      
     # first get the elevation of each vertex
