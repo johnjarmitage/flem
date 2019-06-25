@@ -4,25 +4,6 @@
 Installation
 ============
 
-
-Stable release
---------------
-
-To install flem, run this command in your terminal:
-
-.. code-block:: console
-
-    $ pip install flem
-
-This is the preferred method to install flem, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
-
-
 From sources
 ------------
 
@@ -32,20 +13,43 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/johnjarmitage/flem
+  $ git clone git://github.com/johnjarmitage/flem
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/johnjarmitage/flem/tarball/master
+  $ curl  -OL https://github.com/johnjarmitage/flem/tarball/master
 
-Once you have a copy of the source, you can install it with:
+Dependencies
+------------
+
+Once you have a copy of the source you will then need to install the
+dependencies. `Fenics <https://fenicsproject.org/>`_ is best installed
+from Conda, as is `GDAL <https://gdal.org/>`_. Therefore provided are two
+requirements files. First install `Anaconda <https://www.anaconda.com/>`_.
+Then from within a terminal:
 
 .. code-block:: console
 
-    $ python setup.py install
+  $ conda create -n flem python=3.6
+  $ conda activate flem
 
+Then install the dependencies via conda:
+
+.. code-block:: console
+
+  $ conda install -c conda-forge --file requirements_conda.txt
+
+Finally install the the remaining dependencies via PyPI:
+
+.. code-block:: console
+
+  $ conda install pip
+  $ pip install -r requirements.txt
+
+Now you are good to go. Check out the Notebook in the tests directory for
+ideas.
 
 .. _Github repo: https://github.com/johnjarmitage/flem
 .. _tarball: https://github.com/johnjarmitage/flem/tarball/master
