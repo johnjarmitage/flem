@@ -41,9 +41,7 @@ dependencies:
   - peakutils
   - matplotlib
   - scipy
-  - pyvista
-  - vtk
   - pip
   - pip:
       - elevation
-prefix: /srv/conda
+      - pyvista
