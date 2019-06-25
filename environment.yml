@@ -42,6 +42,7 @@ dependencies:
   - matplotlib
   - scipy
   - pyvista
+  - vtk
   - pip
   - pip:
       - elevation
