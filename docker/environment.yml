@@ -41,8 +41,13 @@ dependencies:
   - peakutils
   - matplotlib
   - scipy
+  - voila
+  - ipywidgets
+  - panel
+  - nodejs
   - pip
-  - pip:
+  - pip:naa
       - elevation
       - pyvista
+      - PyQt5==5.11.3
 prefix: /srv/conda
