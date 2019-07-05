@@ -46,7 +46,7 @@ dependencies:
   - panel
   - nodejs
   - pip
-  - pip:naa
+  - pip:
       - elevation
       - pyvista
       - PyQt5==5.11.3
