@@ -20,7 +20,7 @@ def initialise(dem, bounds, res):
     """
 
     if dem == 0:
-        lx = bounds[2]
+        lx = bounds[1]
         ly = bounds[3]
 
         # Create mesh and define function space

@@ -147,17 +147,19 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
         # Output last elevation
         filename = '%s/u_solution_%d_%d.pvd' % (name, model_space[2], n)
         vtkfile = File(filename)
+        u.rename("elv", "elevation")
         vtkfile << u
 
         # Output last water flux
         filename = '%s/q_solution_%d_%d.pvd' % (name, model_space[2], n)
         vtkfile = File(filename)
+        q.rename("flx", "flux")
         vtkfile << q
 
     # Calculate valley spacing from peak to peak in water flux
-    tol = 0.001 # avoid hitting points outside the domain
+    tol = 0.001  # avoid hitting points outside the domain
     y = np.linspace(0 + tol, 1 - tol, 100)
-    x = np.linspace(0.01, 0.21, 20)
+    x = np.linspace(0.01, .25*lx/ly, 20)
     wavelength = np.zeros(len(x))
     if statistics != 0:
         i = 0
@@ -170,12 +172,11 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
                 wavelength[i] = sum(np.diff(y[indexes]))/(len(indexes)-1)
             else:
                 wavelength[i] = 0
-
-        plt.plot(y*1e-3*ly, q_line*kappa/ly, 'k', linewidth=2)
-        plt.plot(y[indexes]*1e-3*ly, q_line[indexes]*kappa/ly, '+r')
         i += 1
 
         if plot != 0:
+            plt.plot(y*1e-3*ly, q_line*kappa/ly, 'k', linewidth=2)
+            plt.plot(y[indexes]*1e-3*ly, q_line[indexes]*kappa/ly, '+r')
             plt.xlabel('Distance (km)')
             plt.ylabel('Water Flux (m/yr)')
             watername = '%s/water_flux_spacing_%d.svg' % (name, model_space[2])

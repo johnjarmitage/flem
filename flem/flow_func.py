@@ -5,7 +5,7 @@ flem
 
 """
 
-from fenics import Function, vertex_to_dof_map, vertices, Edge, dof_to_vertex_map
+from fenics import Function, vertex_to_dof_map, vertices, Edge, dof_to_vertex_map, cells, facets
 import numpy as np
 
 
@@ -25,8 +25,8 @@ def sd_cellcell(mesh, V, u_n, De, nexp):
     # get a map of neighbours (thanks google!)
     tdim = mesh.topology().dim()
     mesh.init(tdim - 1, tdim)
-    cell_neighbors = np.array([sum((filter(lambda ci: ci != cell.index(),
-                                           facet.entities(tdim))
+    cell_neighbors = np.array([sum((list(filter(lambda ci: ci != cell.index(),
+                                           facet.entities(tdim)))
                                     for facet in facets(cell)), [])
                                for cell in cells(mesh)])
     
@@ -111,8 +111,8 @@ def mfd_cellcell(mesh, V, u_n, De, nexp):
     # get a map of neighbours (thanks google!)
     tdim = mesh.topology().dim()
     mesh.init(tdim - 1, tdim)
-    cell_neighbors = np.array([sum((filter(lambda ci: ci != cell.index(),
-                                           facet.entities(tdim))
+    cell_neighbors = np.array([sum((list(filter(lambda ci: ci != cell.index(),
+                                           facet.entities(tdim)))
                                     for facet in facets(cell)), [])
                                for cell in cells(mesh)])
     
