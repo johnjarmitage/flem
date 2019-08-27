@@ -43,8 +43,10 @@ dependencies:
   - scipy
   - voila
   - ipywidgets
+  - itkwidgets
   - panel
   - nodejs
+  - pandas
   - pip
   - pip:
       - elevation
