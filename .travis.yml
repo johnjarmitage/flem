@@ -18,7 +18,7 @@ install:
     - conda env create -f environment.yml
 #    - conda config --add channels conda-forge
 #    - conda install -c conda-forge --file requirements_conda.txt
-#    - conda install -c conda-forge --file requirements_dev.txt
+    - conda install -c conda-forge --file requirements_dev.txt
 
 # Command to run tests, e.g. python setup.py test
 script:
