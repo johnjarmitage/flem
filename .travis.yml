@@ -1,5 +1,9 @@
 # Config file for automatic testing at travis-ci.org
 
+before_install:
+    - sudo apt-get update
+    - sudo apt-get install libgdal-dev
+
 language: python
 python:
     - 3.6
@@ -21,7 +25,7 @@ install:
 #    - conda install -c conda-forge --file requirements_conda.txt
     - conda install -c conda-forge --file requirements_dev.txt
     # downgrade poppler because of this: https://github.com/ContinuumIO/anaconda-issues/issues/9449
-    - conda install "poppler<0.62"
+    # - conda install "poppler<0.62"
 
 # Command to run tests, e.g. python setup.py test
 script:
