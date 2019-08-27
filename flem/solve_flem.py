@@ -7,7 +7,7 @@ FEniCS program: Smith & Bretherton (1972) equations
 
   u = elevation
   f = uplift
-  
+
 @author: armitage
 """
 
@@ -59,9 +59,9 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
     alpha = physical_space[3]           # precipitation rate
     De = c*pow(alpha*ly, nexp)/kappa
     uamp = physical_space[4]*ly/kappa   # uplift
-    
+
     dt = dt*kappa/(ly*ly)               # time step size
-    
+
     sed_flux = np.zeros(num_steps)      # array to store sediment flux
     time = np.zeros(num_steps)
 
@@ -79,39 +79,39 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
         q_n = sd_nodenode(mesh, V, u_n, De, nexp)
     if flow == 3:
         q_n = sd_cellcell(mesh, V, u_n, De, nexp)
-    
+
     F = u*v*dx + dt*q_n*dot(grad(u), grad(v))*dx - (u_n + dt*f)*v*dx
     a, L = lhs(F), rhs(F)
-    
+
     # Solution and sediment flux
     u = Function(V)
     q_s = Expression('u0 + displ - u1', u0=u_n, displ=Constant(uamp*dt), u1=u, degree=2)
-    
+
     # Iterate
     t = 0
     i = 0
     for n in range(num_steps):
-    
+
         # This needs to become an option!
         # Double rain fall
         # if n == 501:
         #   alpha = 2
         #   De    = c*pow(alpha*ly,nexp)/kappa
-    
+
         # Update current time
         t += dt
-            
+
         # Compute solution
         solve(a == L, u, bc)
-    
+
         # Calculate sediment flux
         sed_flux[i] = assemble(q_s*dx(mesh))
         time[i] = t
         i += 1
-    
+
         # Update previous solution
         u_n.assign(u)
-    
+
         # Update flux
         # 0 = MFD node-to-node; 1 = MFD cell-to-cell; 2 = SD node-to-node; 3 = SD cell-to-cell
         if flow == 0:
@@ -123,7 +123,7 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
         if flow == 3:
             q = sd_cellcell(mesh, V, u_n, De, nexp)
         q_n.assign(q)
-        
+
         # Output solutions
         if out_time != 0:
             if np.mod(n, out_time) == 0:
@@ -133,7 +133,7 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
                 filename = '%s/q_solution_%d.pvd' % (name, n)
                 vtkfile = File(filename)
                 vtkfile << q
-      
+
     # Post processing
     if plot != 0:
         plt.plot(time*1e-6*ly*ly/kappa, sed_flux/dt*kappa, 'k', linewidth=2)
@@ -159,7 +159,7 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
     # Calculate valley spacing from peak to peak in water flux
     tol = 0.001  # avoid hitting points outside the domain
     y = np.linspace(0 + tol, 1 - tol, 100)
-    x = np.linspace(0.01, .25*lx/ly, 20)
+    x = np.linspace(0.01, lx/ly-0.01, 20)
     wavelength = np.zeros(len(x))
     if statistics != 0:
         i = 0
@@ -182,6 +182,6 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
             watername = '%s/water_flux_spacing_%d.svg' % (name, model_space[2])
             plt.savefig(watername, format='svg')
             plt.clf()
-    
+
     return sed_flux, time, wavelength
 
