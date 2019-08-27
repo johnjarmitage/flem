@@ -47,6 +47,7 @@ dependencies:
   - panel
   - nodejs
   - pandas
+  - geopandas
   - pip
   - pip:
       - elevation
