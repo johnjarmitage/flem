@@ -9,8 +9,8 @@ import numpy as np
 import elevation as elv
 import os
 from osgeo import gdal
-from fenics import *
-from mshr import *
+from fenics import FunctionSpace, Function, Point
+from mshr import Rectangle, generate_mesh
 from scipy import interpolate
 
 

@@ -16,13 +16,14 @@ install:
     - conda info -a
     # Create flem environment
     - conda env create -f environment.yml
+    - conda activate flem
 #    - conda config --add channels conda-forge
 #    - conda install -c conda-forge --file requirements_conda.txt
     - conda install -c conda-forge --file requirements_dev.txt
 
 # Command to run tests, e.g. python setup.py test
 script:
-    - conda activate flem
+    #- conda activate flem
     #- pip install -r requirements.txt
     - export PYTHONPATH=.
     - py.test
