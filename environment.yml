@@ -4,9 +4,7 @@ channels:
   - defaults
   - pyviz
 dependencies:
-  # these are for repo2docker so that mybinder works
-
-  # these are the ones we need for the code and notebooks to work
+  # need to be specific for mshr and fenics
   - fenics=2019.1.0=py37_1
   - mshr=2019.1.0=py37h7596e34_1000
   - gdal
