@@ -8,11 +8,11 @@ Script to run transport_func() many times!
 """
 
 from __future__ import print_function
-from fenics import *
-from mshr import *
+#from fenics import *
+#from mshr import *
 import numpy as np
 from flem import initialise, solve_flem
-import peakutils # https://zenodo.org/badge/latestdoi/102883046
+#import peakutils # https://zenodo.org/badge/latestdoi/102883046
 import os
 
 # Directory name
