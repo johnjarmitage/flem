@@ -2,6 +2,7 @@ name: flem
 channels:
   - conda-forge
   - defaults
+  - pyviz
 dependencies:
   # these are for repo2docker so that mybinder works
 
@@ -16,6 +17,8 @@ dependencies:
   - vtk
   - ipywidgets
   - itkwidgets
+  - bokeh
+  - pyviz_comms
   - panel
   - nodejs
   - pandas
