@@ -24,5 +24,6 @@ dependencies:
   - pip:
       - elevation
       - pyvista
+      - PyQt5==5.11.3
 
 prefix: /srv/conda
