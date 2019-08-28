@@ -13,6 +13,7 @@ dependencies:
   - matplotlib
   - scipy
   - voila
+  - vtk
   - ipywidgets
   - itkwidgets
   - panel
