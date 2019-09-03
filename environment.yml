@@ -4,6 +4,7 @@ channels:
   - defaults
   - pyviz
 dependencies:
+  # flem requires
   # need to be specific for mshr and fenics
   - fenics=2019.1.0=py37_1
   - mshr=2019.1.0=py37h7596e34_1000
@@ -11,6 +12,7 @@ dependencies:
   - peakutils
   - matplotlib
   - scipy
+  # notebook requires
   - voila
   - vtk
   - ipywidgets
@@ -23,7 +25,9 @@ dependencies:
   - geopandas
   - pip
   - pip:
+      # flem requires
       - elevation
+      # notebook requires
       - pyvista
       - PyQt5
 

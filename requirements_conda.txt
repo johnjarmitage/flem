@@ -1,8 +1,8 @@
-fenics
-mshr
+# conda requirements for flem
+fenics=2019.1.0=py37_1
+mshr=2019.1.0=py37h7596e34_1000
 gdal
 numpy
 peakutils
 matplotlib
 scipy
-pyvista
