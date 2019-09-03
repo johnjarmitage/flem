@@ -159,8 +159,8 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
     # Calculate valley spacing from peak to peak in water flux
     tol = 0.001  # avoid hitting points outside the domain
     y = np.linspace(0 + tol, 1 - tol, 100)
-    #x = np.linspace(0.01, lx/ly-0.01, 20)
-    x = np.linspace(0.01, 0.21, 20)
+    x = np.linspace(0.01, lx/ly-0.01, 20)
+    # x = np.linspace(0.01, 0.21, 20)
     wavelength = np.zeros(len(x))
     if statistics != 0:
         i = 0
@@ -173,7 +173,7 @@ def solve_flem(model_space, physical_space, flow, u_n, mesh, V, bc, dt, num_step
                 wavelength[i] = sum(np.diff(y[indexes]))/(len(indexes)-1)
             else:
                 wavelength[i] = 0
-        i += 1
+            i += 1
 
         if plot != 0:
             plt.plot(y*1e-3*ly, q_line*kappa/ly, 'k', linewidth=2)
