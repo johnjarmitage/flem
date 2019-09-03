@@ -26,14 +26,42 @@ A simple diffusive landscape evolution model
 * Free software: MIT license
 * Documentation: https://flem.readthedocs.io.
 
-Requirements
+Installation
 ------------
-This library requires an installation of fenics
-(https://fenicsproject.org/). It also requires gdal
-(https://gdal.org/download.html). These can be installed through
-conda using the requirements_conda.txt. There is a further
-requirements.txt for libraries that are then installed through pip.
 
+- flem requires Python 3.7
+- flem requires fenics, gdal, and a bit more. Fenics is best installed using conda.
+  Therefore before installing first get yourself
+  `Anaconda <https://www.anaconda.com/distribution/#download-section>`_. (the 3.7 version) or
+  if you prefer it light `miniconda <https://www.anaconda.com/distribution/#download-section>`_.
+- create a directory of your choice and create an ``environment.yml`` file containing the
+  following:
+
+::
+
+  name: flem
+  channels:
+    - conda-forge
+    - defaults
+  dependencies:
+    # flem requires
+    # need to be specific for mshr and fenics
+    - fenics=2019.1.0=py37_1
+    - mshr=2019.1.0=py37h7596e34_1000
+    - gdal
+    - peakutils
+    - matplotlib
+    - scipy
+    - pip
+    - pip:
+      # flem requires
+      - flem
+      - elevation
+  prefix: /srv/conda
+
+- from the terminal run: ``conda env create -f environment.yml``
+- see `run_models.py <https://github.com/johnjarmitage/flem/blob/master/run_models.py>`_
+  for an example of how to run flem.
 
 Features
 --------
