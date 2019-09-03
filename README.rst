@@ -32,8 +32,8 @@ Installation
 - flem requires Python 3.7
 - flem requires fenics, gdal, and a bit more. Fenics is best installed using conda.
   Therefore before installing first get yourself
-  `Anaconda <https://www.anaconda.com/distribution/#download-section>`_. (the 3.7 version) or
-  if you prefer it light `miniconda <https://www.anaconda.com/distribution/#download-section>`_.
+  `Anaconda <https://www.anaconda.com/distribution/#download-section>`_ (the 3.7 version) or
+  if you prefer it light, `miniconda <https://www.anaconda.com/distribution/#download-section>`_.
 - create a directory of your choice and create an ``environment.yml`` file containing the
   following:
 
@@ -60,10 +60,12 @@ Installation
   prefix: /srv/conda
 
 - from the terminal run: ``conda env create -f environment.yml``
-- see `run_models.py <https://github.com/johnjarmitage/flem/blob/master/run_models.py>`_
-  for an example of how to run flem.
+- check out this `notebook <https://github.com/johnjarmitage/flem-examples>`_
+  for how to run flem.
+- or see `run_models.py <https://github.com/johnjarmitage/flem/blob/master/run_models.py>`_
+  for a more clunky example.
 
-Features
+What is flem?
 --------
 
 This is a set of functions written in python to solve for sediment
