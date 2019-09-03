@@ -15,6 +15,8 @@ dependencies:
   # notebook requires
   - voila
   - vtk
+  - pyvista
+  - pyqt
   - ipywidgets
   - itkwidgets
   - bokeh
@@ -27,8 +29,5 @@ dependencies:
   - pip:
       # flem requires
       - elevation
-      # notebook requires
-      - pyvista
-      - PyQt5
 
 prefix: /srv/conda
