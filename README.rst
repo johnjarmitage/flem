@@ -66,7 +66,7 @@ Installation
   for a more clunky example.
 
 What is flem?
---------
+-------------
 
 This is a set of functions written in python to solve for sediment
 transport. At the base it solves the concentrative-diffusive equations
