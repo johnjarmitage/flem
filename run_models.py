@@ -74,13 +74,14 @@ for res in resolutions:
 
 kappa = physical_space[0]
 ly = bounds[3]
+dtreal = dt*kappa/(ly*ly)
 
 j = 0
 for num in number:
     k = 0
     for res in resolutions:
         for t in range(num_steps):
-            fsed.write('%d\t%d\t%g\t%g\n' % (num, res, TIME[k, j, t]*1e-6*ly*ly/kappa, QS[k, j, t]/dt*kappa))
+            fsed.write('%d\t%d\t%g\t%g\n' % (num, res, TIME[k, j, t]*1e-6*ly*ly/kappa, QS[k, j, t]/dtreal*kappa))
         k += 1
     j += 1
 
