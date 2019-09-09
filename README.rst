@@ -62,6 +62,11 @@ Installation
 - from the terminal run: ``conda env create -f environment.yml``
 - check out this `notebook <https://github.com/johnjarmitage/flem-examples>`_
   for how to run flem.
+- click the icon below for an executable article!
+
+.. image:: https://mybinder.org/badge_logo.svg
+ :target: https://mybinder.org/v2/gh/johnjarmitage/flem-execarticle/master?urlpath=%2Fvoila%2Frender%2Fexecart-armitage-2019.ipynb
+
 - or see `run_models.py <https://github.com/johnjarmitage/flem/blob/master/run_models.py>`_
   for a more clunky example.
 
