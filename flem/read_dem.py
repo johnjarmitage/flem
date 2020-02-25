@@ -55,7 +55,7 @@ def read_dem(bounds, res):
     # Interpolate elevation into the initial condition
     elevation = interpolate.griddata((x.flatten(), y.flatten()), data_array.flatten(), (gc[:, 0], gc[:, 1]),
                                      method='nearest')
-    u_n.vector()[:] = elevation
+    u_n.vector()[:] = elevation/ly
 
     # remove tmp DEM
     os.remove(output)
