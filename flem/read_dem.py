@@ -24,6 +24,7 @@ def read_dem(bounds, res):
     :param bounds: west, south, east, north coordinates
     :return u_n, lx, ly: the elevation interpolated onto the dolphyn mesh and the lengths of the domain
     """
+
     west, south, east, north = bounds
 
     # Create a temporary file to store the DEM and go get it using elevation
@@ -40,7 +41,7 @@ def read_dem(bounds, res):
     lx = nx*30
     ly = ny*30
 
-    x, y = np.meshgrid(np.linspace(0, lx/ly, nx), np.linspace(0, 1, ny))
+    x, y = np.meshgrid(np.linspace(0, lx/ly, nx), np.linspace(1, 0, ny))
 
     # Create mesh and define function space
     domain = Rectangle(Point(0, 0), Point(lx/ly, 1))
